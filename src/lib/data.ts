@@ -7,6 +7,7 @@ import menuPahaBawah from "@/assets/menu-paha-bawah.jpg";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
+import bakakak from "@/assets/Bakakak.jpg";
 
 export interface MenuItem {
   id: string;
@@ -103,6 +104,14 @@ export const dummyMenuItems: MenuItem[] = [
     kategori: "Ayam Goreng",
   },
   {
+  id: "5",
+    nama: "Bakakak",
+    harga: 75000,
+    deskripsi: "1 Ekor ayam utuh yang dilumuri bumbu, daging nya juicy dan kulit nya yg garing.",
+    image_url: bakakak,
+    kategori: "Ayam Goreng",
+  }
+  {
     id: "6",
     nama: "Paket Hemat 1",
     harga: 20000,
@@ -118,14 +127,6 @@ export const dummyMenuItems: MenuItem[] = [
     image_url: menuPaha,
     kategori: "Paket",
   },
-  {
-  id: "5",
-    nama: "Bakakak",
-    harga: 75000,
-    deskripsi: "1 Ekor ayam utuh yang dilumuri bumbu, daging nya juicy dan kulit nya yg garing.",
-    image_url: Bakakak,
-    kategori: "Ayam Goreng",
-  }
 ];
 
 export const dummyGallery: GalleryItem[] = [
