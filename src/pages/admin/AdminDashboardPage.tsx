@@ -348,26 +348,26 @@ const AdminDashboardPage = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="address">Alamat</Label>
+                      <Label htmlFor="address">Alamat (Cabang Pusat)</Label>
                       <Textarea
                         id="address"
-                        defaultValue={dummyProfile.alamat}
+                        defaultValue={dummyProfile.locations[0]?.alamat}
                         rows={2}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="whatsapp">Nomor WhatsApp</Label>
+                      <Label htmlFor="whatsapp">Nomor WhatsApp (Cabang Pusat)</Label>
                       <Input
                         id="whatsapp"
-                        defaultValue={dummyProfile.no_wa}
+                        defaultValue={dummyProfile.locations[0]?.no_wa}
                         placeholder="628xxxxxxxxxx"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="maps">Link Google Maps</Label>
+                      <Label htmlFor="maps">Link Google Maps (Cabang Pusat)</Label>
                       <Input
                         id="maps"
-                        defaultValue={dummyProfile.maps_link}
+                        defaultValue={dummyProfile.locations[0]?.maps_link}
                       />
                     </div>
                     <div className="space-y-2">
