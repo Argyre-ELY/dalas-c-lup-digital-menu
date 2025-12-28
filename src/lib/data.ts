@@ -103,7 +103,7 @@ export const dummyMenuItems: MenuItem[] = [
     kategori: "Ayam Goreng",
   },
   {
-    id: "5",
+    id: "6",
     nama: "Paket Hemat 1",
     harga: 20000,
     deskripsi: "1 potong ayam (bebas pilih) + Nasi + Es Teh Manis. Paket ekonomis untuk makan sendiri.",
@@ -111,7 +111,7 @@ export const dummyMenuItems: MenuItem[] = [
     kategori: "Paket",
   },
   {
-    id: "6",
+    id: "7",
     nama: "Paket Keluarga",
     harga: 75000,
     deskripsi: "5 potong ayam campur + 5 Nasi + 5 Es Teh. Cocok untuk makan bersama keluarga tercinta.",
@@ -119,11 +119,11 @@ export const dummyMenuItems: MenuItem[] = [
     kategori: "Paket",
   },
   {
-  id: "7",
+  id: "5",
     nama: "Bakakak",
     harga: 75000,
     deskripsi: "1 Ekor ayam utuh yang dilumuri bumbu, daging nya juicy dan kulit nya yg garing.",
-    image_url: menuPaha,
+    image_url: Bakakak,
     kategori: "Ayam Goreng",
   }
 ];
