@@ -5,7 +5,8 @@ import { dummyProfile } from "@/lib/data";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  const whatsappLink = `https://wa.me/${dummyProfile.no_wa}?text=Halo, saya ingin bertanya tentang Dalas C'lup Fried Chicken`;
+  const mainLocation = dummyProfile.locations[0];
+  const whatsappLink = `https://wa.me/${mainLocation.no_wa}?text=Halo, saya ingin bertanya tentang Dalas C'lup Fried Chicken`;
 
   return (
     <footer className="bg-emerald-dark text-primary-foreground">
@@ -53,22 +54,19 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Locations */}
           <div>
-            <h4 className="font-display font-semibold text-gold mb-4">Kontak</h4>
+            <h4 className="font-display font-semibold text-gold mb-4">Lokasi Kami</h4>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
-                <span className="text-primary-foreground/80 text-sm">{dummyProfile.alamat}</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-gold flex-shrink-0" />
-                <span className="text-primary-foreground/80 text-sm">+62 812-3456-7890</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Clock className="w-4 h-4 text-gold flex-shrink-0" />
-                <span className="text-primary-foreground/80 text-sm">Setiap Hari: 10:00 - 21:00</span>
-              </li>
+              {dummyProfile.locations.map((location) => (
+                <li key={location.id} className="flex items-start gap-3">
+                  <MapPin className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                  <div>
+                    <span className="text-primary-foreground text-sm font-medium block">{location.nama}</span>
+                    <span className="text-primary-foreground/70 text-xs">{location.jam_operasional}</span>
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -99,13 +97,13 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-4">
               <a
-                href={dummyProfile.maps_link}
+                href={dummyProfile.locations[0].maps_link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-foreground/60 hover:text-gold transition-colors text-sm flex items-center gap-1"
               >
                 <MapPin className="w-3 h-3" />
-                Lihat di Google Maps
+                Lihat Semua Lokasi
               </a>
             </div>
           </div>

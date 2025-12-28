@@ -135,7 +135,7 @@ const Index = () => {
             </Button>
             <Button variant="gold-outline" size="xl" asChild>
               <a
-                href={`https://wa.me/${dummyProfile.no_wa}?text=Halo, saya ingin memesan Ayam Goreng Dalas C'lup`}
+                href={`https://wa.me/${dummyProfile.locations[0].no_wa}?text=Halo, saya ingin memesan Ayam Goreng Dalas C'lup`}
                 target="_blank"
                 rel="noopener noreferrer"
               >

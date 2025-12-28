@@ -17,12 +17,19 @@ export interface MenuItem {
   kategori: string;
 }
 
-export interface Profile {
+export interface Location {
+  id: string;
   nama: string;
   alamat: string;
   no_wa: string;
   maps_link: string;
+  jam_operasional: string;
+}
+
+export interface Profile {
+  nama: string;
   deskripsi: string;
+  locations: Location[];
 }
 
 export interface GalleryItem {
@@ -33,10 +40,33 @@ export interface GalleryItem {
 
 export const dummyProfile: Profile = {
   nama: "Dalas C'lup Fried Chicken",
-  alamat: "Jl. Raya Utama No. 123, Kelurahan Sukamaju, Kecamatan Bahagia, Kota Sejahtera 12345",
-  no_wa: "6281234567890",
-  maps_link: "https://maps.google.com/?q=-6.2088,106.8456",
   deskripsi: "Berdiri sejak tahun 2015, Dalas C'lup Fried Chicken hadir untuk memenuhi hasrat pecinta ayam goreng krispy yang gurih dan renyah. Dengan resep rahasia turun-temurun dan bahan-bahan berkualitas pilihan, kami berkomitmen menyajikan kelezatan autentik yang tak terlupakan. Setiap potong ayam digoreng dengan sempurna hingga berwarna keemasan, renyah di luar dan juicy di dalam.",
+  locations: [
+    {
+      id: "1",
+      nama: "Cabang Pusat - Sukamaju",
+      alamat: "Jl. Raya Utama No. 123, Kelurahan Sukamaju, Kecamatan Bahagia, Kota Sejahtera 12345",
+      no_wa: "6281234567890",
+      maps_link: "https://maps.google.com/?q=-6.2088,106.8456",
+      jam_operasional: "Setiap Hari: 10:00 - 21:00 WIB",
+    },
+    {
+      id: "2",
+      nama: "Cabang Merdeka",
+      alamat: "Jl. Merdeka Raya No. 45, Kelurahan Jaya, Kecamatan Makmur, Kota Sejahtera 12346",
+      no_wa: "6281234567891",
+      maps_link: "https://maps.google.com/?q=-6.2100,106.8500",
+      jam_operasional: "Setiap Hari: 09:00 - 22:00 WIB",
+    },
+    {
+      id: "3",
+      nama: "Cabang Mall Central",
+      alamat: "Mall Central Plaza Lt. 3, Food Court Area, Jl. Sudirman No. 88, Kota Sejahtera 12347",
+      no_wa: "6281234567892",
+      maps_link: "https://maps.google.com/?q=-6.2050,106.8400",
+      jam_operasional: "Setiap Hari: 10:00 - 22:00 WIB",
+    },
+  ],
 };
 
 export const dummyMenuItems: MenuItem[] = [
