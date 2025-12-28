@@ -118,6 +118,14 @@ export const dummyMenuItems: MenuItem[] = [
     image_url: menuPaha,
     kategori: "Paket",
   },
+  {
+  id: "7",
+    nama: "Bakakak",
+    harga: 75000,
+    deskripsi: "1 Ekor ayam utuh yang dilumuri bumbu, daging nya juicy dan kulit nya yg garing.",
+    image_url: menuPaha,
+    kategori: "Paket",
+  }
 ];
 
 export const dummyGallery: GalleryItem[] = [
