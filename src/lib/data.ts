@@ -1,0 +1,118 @@
+// Dummy data for development - will be replaced with Supabase data
+
+import menuDada from "@/assets/menu-dada.jpg";
+import menuPaha from "@/assets/menu-paha.jpg";
+import menuSayap from "@/assets/menu-sayap.jpg";
+import menuPahaBawah from "@/assets/menu-paha-bawah.jpg";
+import gallery1 from "@/assets/gallery-1.jpg";
+import gallery2 from "@/assets/gallery-2.jpg";
+import gallery3 from "@/assets/gallery-3.jpg";
+
+export interface MenuItem {
+  id: string;
+  nama: string;
+  harga: number;
+  deskripsi: string;
+  image_url: string;
+  kategori: string;
+}
+
+export interface Profile {
+  nama: string;
+  alamat: string;
+  no_wa: string;
+  maps_link: string;
+  deskripsi: string;
+}
+
+export interface GalleryItem {
+  id: string;
+  image_url: string;
+  caption: string;
+}
+
+export const dummyProfile: Profile = {
+  nama: "Dalas C'lup Fried Chicken",
+  alamat: "Jl. Raya Utama No. 123, Kelurahan Sukamaju, Kecamatan Bahagia, Kota Sejahtera 12345",
+  no_wa: "6281234567890",
+  maps_link: "https://maps.google.com/?q=-6.2088,106.8456",
+  deskripsi: "Berdiri sejak tahun 2015, Dalas C'lup Fried Chicken hadir untuk memenuhi hasrat pecinta ayam goreng krispy yang gurih dan renyah. Dengan resep rahasia turun-temurun dan bahan-bahan berkualitas pilihan, kami berkomitmen menyajikan kelezatan autentik yang tak terlupakan. Setiap potong ayam digoreng dengan sempurna hingga berwarna keemasan, renyah di luar dan juicy di dalam.",
+};
+
+export const dummyMenuItems: MenuItem[] = [
+  {
+    id: "1",
+    nama: "Dada",
+    harga: 15000,
+    deskripsi: "Potongan dada ayam dengan daging tebal dan juicy, dibalut tepung krispy gurih. Favorit pelanggan!",
+    image_url: menuDada,
+    kategori: "Ayam Goreng",
+  },
+  {
+    id: "2",
+    nama: "Paha Atas",
+    harga: 14000,
+    deskripsi: "Potongan paha atas dengan daging lembut dan kulit krispy yang sempurna. Porsi mengenyangkan.",
+    image_url: menuPaha,
+    kategori: "Ayam Goreng",
+  },
+  {
+    id: "3",
+    nama: "Paha Bawah",
+    harga: 13000,
+    deskripsi: "Potongan paha bawah dengan tulang yang mudah digenggam. Cocok untuk anak-anak dan dewasa.",
+    image_url: menuPahaBawah,
+    kategori: "Ayam Goreng",
+  },
+  {
+    id: "4",
+    nama: "Sayap",
+    harga: 10000,
+    deskripsi: "Sayap ayam krispy yang gurih, sempurna untuk camilan atau pelengkap makan siang.",
+    image_url: menuSayap,
+    kategori: "Ayam Goreng",
+  },
+  {
+    id: "5",
+    nama: "Paket Hemat 1",
+    harga: 20000,
+    deskripsi: "1 potong ayam (bebas pilih) + Nasi + Es Teh Manis. Paket ekonomis untuk makan sendiri.",
+    image_url: menuDada,
+    kategori: "Paket",
+  },
+  {
+    id: "6",
+    nama: "Paket Keluarga",
+    harga: 75000,
+    deskripsi: "5 potong ayam campur + 5 Nasi + 5 Es Teh. Cocok untuk makan bersama keluarga tercinta.",
+    image_url: menuPaha,
+    kategori: "Paket",
+  },
+];
+
+export const dummyGallery: GalleryItem[] = [
+  {
+    id: "1",
+    image_url: gallery1,
+    caption: "Ayam goreng dengan nasi hangat dan sambal pedas",
+  },
+  {
+    id: "2",
+    image_url: gallery2,
+    caption: "Dapur bersih dan higienis kami",
+  },
+  {
+    id: "3",
+    image_url: gallery3,
+    caption: "Pelanggan setia kami yang bahagia",
+  },
+];
+
+export const formatRupiah = (amount: number): string => {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+};
