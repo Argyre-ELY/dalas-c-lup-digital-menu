@@ -124,7 +124,7 @@ export const dummyMenuItems: MenuItem[] = [
     harga: 75000,
     deskripsi: "1 Ekor ayam utuh yang dilumuri bumbu, daging nya juicy dan kulit nya yg garing.",
     image_url: menuPaha,
-    kategori: "Paket",
+    kategori: "Ayam Goreng",
   }
 ];
 
