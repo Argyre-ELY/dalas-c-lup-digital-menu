@@ -22,6 +22,7 @@ export interface Location {
   nama: string;
   alamat: string;
   no_wa: string;
+  no_telp: string;
   maps_link: string;
   jam_operasional: string;
 }
@@ -47,6 +48,7 @@ export const dummyProfile: Profile = {
       nama: "Cabang Pusat - Sukamaju",
       alamat: "Jl. Raya Utama No. 123, Kelurahan Sukamaju, Kecamatan Bahagia, Kota Sejahtera 12345",
       no_wa: "6281234567890",
+      no_telp: "021-1234567",
       maps_link: "https://maps.google.com/?q=-6.2088,106.8456",
       jam_operasional: "Setiap Hari: 10:00 - 21:00 WIB",
     },
@@ -55,6 +57,7 @@ export const dummyProfile: Profile = {
       nama: "Cabang Merdeka",
       alamat: "Jl. Merdeka Raya No. 45, Kelurahan Jaya, Kecamatan Makmur, Kota Sejahtera 12346",
       no_wa: "6281234567891",
+      no_telp: "021-7654321",
       maps_link: "https://maps.google.com/?q=-6.2100,106.8500",
       jam_operasional: "Setiap Hari: 09:00 - 22:00 WIB",
     },
@@ -63,6 +66,7 @@ export const dummyProfile: Profile = {
       nama: "Cabang Mall Central",
       alamat: "Mall Central Plaza Lt. 3, Food Court Area, Jl. Sudirman No. 88, Kota Sejahtera 12347",
       no_wa: "6281234567892",
+      no_telp: "021-9876543",
       maps_link: "https://maps.google.com/?q=-6.2050,106.8400",
       jam_operasional: "Setiap Hari: 10:00 - 22:00 WIB",
     },

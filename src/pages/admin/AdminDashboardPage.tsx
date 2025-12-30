@@ -97,6 +97,7 @@ const AdminDashboardPage = () => {
       nama: formData.get("nama") as string,
       alamat: formData.get("alamat") as string,
       no_wa: formData.get("no_wa") as string,
+      no_telp: formData.get("no_telp") as string || "",
       maps_link: formData.get("maps_link") as string,
       jam_operasional: formData.get("jam_operasional") as string,
     };
@@ -431,6 +432,15 @@ const AdminDashboardPage = () => {
                             defaultValue={editingLocation?.no_wa}
                             placeholder="628xxxxxxxxxx"
                             required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="no_telp">Nomor Telepon</Label>
+                          <Input
+                            id="no_telp"
+                            name="no_telp"
+                            defaultValue={editingLocation?.no_telp}
+                            placeholder="021-xxxxxxx"
                           />
                         </div>
                         <div className="space-y-2">
