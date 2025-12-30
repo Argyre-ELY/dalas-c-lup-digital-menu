@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  LayoutDashboard,
   UtensilsCrossed,
   ImageIcon,
   Settings,
@@ -10,7 +9,8 @@ import {
   Pencil,
   Trash2,
   Menu,
-  X,
+  MapPin,
+  Upload,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,14 +35,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { dummyMenuItems, dummyProfile, formatRupiah, MenuItem } from "@/lib/data";
+import { dummyMenuItems, dummyProfile, dummyGallery, formatRupiah, MenuItem, Location, GalleryItem } from "@/lib/data";
 
 const AdminDashboardPage = () => {
   const [activeTab, setActiveTab] = useState("menu");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [menuItems, setMenuItems] = useState<MenuItem[]>(dummyMenuItems);
+  const [locations, setLocations] = useState<Location[]>(dummyProfile.locations);
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>(dummyGallery);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
+  const [editingLocation, setEditingLocation] = useState<Location | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isLocationDialogOpen, setIsLocationDialogOpen] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -85,8 +89,40 @@ const AdminDashboardPage = () => {
     setEditingItem(null);
   };
 
+  const handleSaveLocation = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const updatedLocation: Location = {
+      id: editingLocation?.id || Date.now().toString(),
+      nama: formData.get("nama") as string,
+      alamat: formData.get("alamat") as string,
+      no_wa: formData.get("no_wa") as string,
+      maps_link: formData.get("maps_link") as string,
+      jam_operasional: formData.get("jam_operasional") as string,
+    };
+
+    if (editingLocation) {
+      setLocations(locations.map((loc) => (loc.id === editingLocation.id ? updatedLocation : loc)));
+      toast({ title: "Lokasi Diperbarui", description: "Informasi lokasi berhasil diperbarui" });
+    } else {
+      setLocations([...locations, updatedLocation]);
+      toast({ title: "Lokasi Ditambahkan", description: "Lokasi baru berhasil ditambahkan" });
+    }
+    setIsLocationDialogOpen(false);
+    setEditingLocation(null);
+  };
+
+  const handleDeleteLocation = (id: string) => {
+    setLocations(locations.filter((loc) => loc.id !== id));
+    toast({
+      title: "Lokasi Dihapus",
+      description: "Lokasi berhasil dihapus",
+    });
+  };
+
   const sidebarItems = [
     { id: "menu", label: "Kelola Menu", icon: UtensilsCrossed },
+    { id: "locations", label: "Kelola Lokasi", icon: MapPin },
     { id: "gallery", label: "Kelola Galeri", icon: ImageIcon },
     { id: "profile", label: "Profil Usaha", icon: Settings },
   ];
@@ -248,6 +284,29 @@ const AdminDashboardPage = () => {
                             rows={3}
                           />
                         </div>
+                        <div className="space-y-2">
+                          <Label>Gambar Menu</Label>
+                          {editingItem?.image_url && (
+                            <div className="w-20 h-20 rounded-lg overflow-hidden border border-border">
+                              <img
+                                src={editingItem.image_url}
+                                alt={editingItem.nama}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
+                          <Input
+                            id="image"
+                            name="image"
+                            type="file"
+                            accept="image/*"
+                            disabled
+                            className="cursor-not-allowed"
+                          />
+                          <p className="text-xs text-muted-foreground">
+                            Upload gambar akan tersedia setelah koneksi Lovable Cloud
+                          </p>
+                        </div>
                       </div>
                       <DialogFooter>
                         <Button type="submit">
@@ -264,6 +323,7 @@ const AdminDashboardPage = () => {
                   <Table>
                     <TableHeader>
                       <TableRow>
+                        <TableHead className="w-16">Gambar</TableHead>
                         <TableHead>Nama</TableHead>
                         <TableHead>Kategori</TableHead>
                         <TableHead>Harga</TableHead>
@@ -273,6 +333,15 @@ const AdminDashboardPage = () => {
                     <TableBody>
                       {menuItems.map((item) => (
                         <TableRow key={item.id}>
+                          <TableCell>
+                            <div className="w-12 h-12 rounded-lg overflow-hidden">
+                              <img
+                                src={item.image_url}
+                                alt={item.nama}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          </TableCell>
                           <TableCell className="font-medium">{item.nama}</TableCell>
                           <TableCell>{item.kategori}</TableCell>
                           <TableCell className="text-gold font-semibold">
@@ -309,23 +378,180 @@ const AdminDashboardPage = () => {
             </div>
           )}
 
-          {activeTab === "gallery" && (
+          {activeTab === "locations" && (
             <div>
-              <p className="text-muted-foreground mb-6">
-                Kelola foto galeri untuk ditampilkan di website
-              </p>
+              <div className="flex justify-between items-center mb-6">
+                <p className="text-muted-foreground">
+                  Kelola informasi lokasi cabang
+                </p>
+                <Dialog open={isLocationDialogOpen} onOpenChange={setIsLocationDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button onClick={() => setEditingLocation(null)}>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Tambah Lokasi
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>
+                        {editingLocation ? "Edit Lokasi" : "Tambah Lokasi Baru"}
+                      </DialogTitle>
+                      <DialogDescription>
+                        Isi informasi lokasi cabang
+                      </DialogDescription>
+                    </DialogHeader>
+                    <form onSubmit={handleSaveLocation}>
+                      <div className="space-y-4 py-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="nama">Nama Cabang</Label>
+                          <Input
+                            id="nama"
+                            name="nama"
+                            defaultValue={editingLocation?.nama}
+                            placeholder="contoh: Cabang Pusat"
+                            required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="alamat">Alamat</Label>
+                          <Textarea
+                            id="alamat"
+                            name="alamat"
+                            defaultValue={editingLocation?.alamat}
+                            placeholder="Alamat lengkap..."
+                            rows={2}
+                            required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="no_wa">Nomor WhatsApp</Label>
+                          <Input
+                            id="no_wa"
+                            name="no_wa"
+                            defaultValue={editingLocation?.no_wa}
+                            placeholder="628xxxxxxxxxx"
+                            required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="maps_link">Link Google Maps</Label>
+                          <Input
+                            id="maps_link"
+                            name="maps_link"
+                            defaultValue={editingLocation?.maps_link}
+                            placeholder="https://maps.google.com/..."
+                            required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="jam_operasional">Jam Operasional</Label>
+                          <Input
+                            id="jam_operasional"
+                            name="jam_operasional"
+                            defaultValue={editingLocation?.jam_operasional}
+                            placeholder="contoh: 10:00 - 22:00"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <Button type="submit">
+                          {editingLocation ? "Simpan Perubahan" : "Tambah Lokasi"}
+                        </Button>
+                      </DialogFooter>
+                    </form>
+                  </DialogContent>
+                </Dialog>
+              </div>
+
               <Card>
-                <CardContent className="p-8 text-center">
-                  <ImageIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-muted-foreground mb-4">
-                    Fitur upload galeri akan tersedia setelah koneksi Supabase
-                  </p>
-                  <Button variant="outline" disabled>
-                    <Plus className="w-4 h-4 mr-2" />
-                    Upload Foto
-                  </Button>
+                <CardContent className="p-0">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Nama Cabang</TableHead>
+                        <TableHead>Alamat</TableHead>
+                        <TableHead>No. WhatsApp</TableHead>
+                        <TableHead className="text-right">Aksi</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {locations.map((loc) => (
+                        <TableRow key={loc.id}>
+                          <TableCell className="font-medium">{loc.nama}</TableCell>
+                          <TableCell className="max-w-[200px] truncate">{loc.alamat}</TableCell>
+                          <TableCell>{loc.no_wa}</TableCell>
+                          <TableCell className="text-right">
+                            <div className="flex justify-end gap-2">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => {
+                                  setEditingLocation(loc);
+                                  setIsLocationDialogOpen(true);
+                                }}
+                              >
+                                <Pencil className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="text-destructive hover:text-destructive"
+                                onClick={() => handleDeleteLocation(loc.id)}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </CardContent>
               </Card>
+            </div>
+          )}
+
+          {activeTab === "gallery" && (
+            <div>
+              <div className="flex justify-between items-center mb-6">
+                <p className="text-muted-foreground">
+                  Kelola foto galeri untuk ditampilkan di website
+                </p>
+                <Button variant="outline" disabled>
+                  <Upload className="w-4 h-4 mr-2" />
+                  Upload Foto (Segera)
+                </Button>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {galleryItems.map((item) => (
+                  <Card key={item.id} className="overflow-hidden group">
+                    <div className="aspect-square relative">
+                      <img
+                        src={item.image_url}
+                        alt={item.caption}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-foreground/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                        <Button size="icon" variant="secondary" disabled>
+                          <Pencil className="w-4 h-4" />
+                        </Button>
+                        <Button size="icon" variant="destructive" disabled>
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                    <CardContent className="p-2">
+                      <p className="text-xs text-muted-foreground truncate">{item.caption}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              
+              <p className="text-center text-muted-foreground text-sm mt-6">
+                Fitur upload & edit gambar akan tersedia setelah koneksi Lovable Cloud
+              </p>
             </div>
           )}
 
