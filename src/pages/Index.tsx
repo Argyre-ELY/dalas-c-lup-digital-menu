@@ -4,11 +4,8 @@ import { HeroSection } from "@/components/HeroSection";
 import { MenuCard } from "@/components/MenuCard";
 import { Button } from "@/components/ui/button";
 import { dummyMenuItems, dummyProfile } from "@/lib/data";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-
-const galleryImages = [gallery1, gallery2, gallery3];
+// Gambar galeri bisa diedit di: src/assets/gallery/
+import { galleryImages } from "@/assets/gallery";
 
 const Index = () => {
   const featuredMenu = dummyMenuItems.slice(0, 4);
