@@ -1,4 +1,3 @@
-import { forwardRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { MenuItem, formatRupiah } from "@/lib/data";
 
@@ -6,7 +5,7 @@ interface MenuCardProps {
   item: MenuItem;
 }
 
-export const MenuCard = forwardRef<HTMLDivElement, MenuCardProps>(({ item }, ref) => {
+export function MenuCard({ item }: MenuCardProps) {
   return (
     <Card variant="menu" className="group">
       {/* Image */}
@@ -41,6 +40,4 @@ export const MenuCard = forwardRef<HTMLDivElement, MenuCardProps>(({ item }, ref
       </CardContent>
     </Card>
   );
-});
-
-MenuCard.displayName = "MenuCard";
+}
