@@ -1,12 +1,14 @@
-// Dummy data for development - will be replaced with Supabase data
+/**
+ * Data untuk development - akan diganti dengan data dari Lovable Cloud
+ * 
+ * Untuk edit gambar, lihat folder:
+ * - src/assets/menu/     → Gambar menu
+ * - src/assets/gallery/  → Gambar galeri
+ * - src/assets/hero/     → Gambar hero/banner
+ */
 
-import menuDada from "@/assets/menu-dada.jpg";
-import menuPaha from "@/assets/menu-paha.jpg";
-import menuSayap from "@/assets/menu-sayap.jpg";
-import menuPahaBawah from "@/assets/menu-paha-bawah.jpg";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
+import { menuDada, menuPaha, menuSayap, menuPahaBawah } from "@/assets/menu";
+import { gallery1, gallery2, gallery3 } from "@/assets/gallery";
 
 export interface MenuItem {
   id: string;

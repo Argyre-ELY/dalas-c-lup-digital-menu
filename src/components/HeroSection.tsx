@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-chicken.jpg";
+// Gambar hero bisa diedit di: src/assets/hero/
+import { heroChicken as heroImage } from "@/assets/hero";
 
 export function HeroSection() {
   return (
